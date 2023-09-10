@@ -1,0 +1,35 @@
+.contentInput {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+  gap: 3px;
+  align-items: start;
+}
+
+.labelInput {
+  font-size: var(--commonFontSize);
+  color: var(--colorGray);
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid var(--disabledColor);
+  font-size: var(--commonFontSize);
+  color: var(--colorBlack);
+  font-family: 'Nunito_Sans', sans-serif;
+  color: var(--colorBlack);
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input:focus {
+  outline: none;
+  border: 1px solid var(--colorGreen);
+}
+
+.input:focus + .labelInput {
+  color: var(--colorGreen);
+}

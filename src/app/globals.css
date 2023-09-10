@@ -1,3 +1,19 @@
+:root {
+  --colorBlack: #2c2c2c;
+  --colorGray: #5c5c5c;
+  --disabledColor: #c4c4c4;
+  --colorWhite: #fff;
+  --colorGreen: #2e6930;
+  --commonFontSize: 1rem;
+  --smallFontSize: 0.8rem;
+  --mediumFontSize: 1.2rem;
+  --largeFontSize: 1.6rem;
+  --extraLargeFontSize: 2.4rem;
+  --extraExtraLargeFontSize: 3.2rem;
+  --extraExtraExtraLargeFontSize: 4.8rem;
+}
+
+input, textarea, select { font-family:inherit!important; }
 * {
   box-sizing: border-box;
   margin: 0;

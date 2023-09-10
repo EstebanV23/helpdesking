@@ -1,0 +1,22 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.055);
+  margin: auto;
+  align-items: start;
+}
+
+.title{
+  font-size: var(--largeFontSize);
+  color: var(--colorBlack);
+  font-weight: bold;
+  text-align: center;
+  color: var(--colorGray);
+  width: 100%;
+}

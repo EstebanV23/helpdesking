@@ -1,11 +1,12 @@
 .main {
   width: 100%;
+  padding: 10px;
 }
 
-.title{
-  font-weight: bolder;
-  font-size: 4rem;
-  color: #2c2c2c;
+.main > h1{
+  font-weight: bold;
+  font-size: var(--extraExtraExtraLargeFontSize);
+  color: var(--colorBlack);
   text-align: center;
 }
 
@@ -16,7 +17,6 @@
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   width: 100vw;
-
 }
 
 .image{
@@ -50,4 +50,25 @@
   transform: translate(-50%, -50%);
   z-index: 2;
   filter: sepia(100%) saturate(100000%) grayscale(10000%) invert(100%) contrast(1000);
+}
+
+@media (max-width: 768px) {
+  .contentMain {
+    display: block;
+  }
+  .image {
+    height: auto;
+    width: 100%
+  }
+}
+
+@media (max-width: 375px) {
+  .main > h1{
+    font-size: var(--extraExtraLargeFontSize);
+  }
+  .logo {
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
 }

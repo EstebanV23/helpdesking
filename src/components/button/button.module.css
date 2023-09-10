@@ -1,0 +1,37 @@
+.button {
+  background-color: var(--colorGray);
+  border: 1px solid var(--disabledColor);
+  border-radius: 4px;
+  color: var(--colorWhite);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+}
+
+.button > span {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 100,
+  'GRAD' -25,
+  'opsz' 24;
+  transition: all 0.15s ease-in-out;
+}
+
+.button:hover > span {
+  transform: translateX(5px);
+}
+
+.button:hover {
+  background-color: var(--colorBlack);
+  border-color:  var(--colorGray);
+}
