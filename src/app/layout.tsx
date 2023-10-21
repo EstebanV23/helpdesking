@@ -1,12 +1,12 @@
 import './globals.css'
 import './normalize.css'
 import type { Metadata } from 'next'
-import { Nunito_Sans } from 'next/font/google'
+import { Nunito_Sans as NunitoSansFont } from 'next/font/google'
 import type { NextFont } from 'next/dist/compiled/@next/font'
 import React from 'react'
 import { Toaster } from 'sonner'
 
-const NunitoSans:NextFont = Nunito_Sans({ weight: ['200', '300', '400', '500', '600', '700', '800', '900'], subsets: ['latin'] })
+const NunitoSans:NextFont = NunitoSansFont({ weight: ['200', '300', '400', '500', '600', '700', '800', '900'], subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'FCV HelpDesk',

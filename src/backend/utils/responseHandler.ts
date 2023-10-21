@@ -1,4 +1,4 @@
-import { ErrorResponse, SuccessResponse } from '@/interfaceModels/responseTypes'
+import { ErrorResponse, SuccessResponse } from '@/backend/interfaceModels/responseTypes'
 import { NextApiResponse } from 'next'
 
 class SuccessResponseHandler implements SuccessResponse {

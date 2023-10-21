@@ -1,9 +1,9 @@
 import { NextApiResponse, NextApiRequest } from 'next'
-import HdUserProvider from '@/provider/HdUserProvider'
-import validateRequest from '@/utils/validation'
-import { hdUserCreate } from '@/validationModels/HdUserValidation'
-import { newUserType } from '@/interfaceModels/UsuarioType'
-import { ErrorResponseHandler, SuccessResponseHandler } from '@/utils/responseHandler'
+import HdUserProvider from '@/backend/provider/HdUserProvider'
+import validateRequest from '@/backend/utils/validation'
+import { hdUserCreate } from '@/backend/validationModels/HdUserValidation'
+import { newUserType } from '@/backend/interfaceModels/UsuarioType'
+import { ErrorResponseHandler, SuccessResponseHandler } from '@/backend/utils/responseHandler'
 
 const userProvider = new HdUserProvider()
 

@@ -1,5 +1,5 @@
-import { newUserType } from '@/interfaceModels/UsuarioType'
-import bcryptHash from '@/utils/bcryptHash'
+import { newUserType } from '@/backend/interfaceModels/UsuarioType'
+import bcryptHash from '@/backend/utils/bcryptHash'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
