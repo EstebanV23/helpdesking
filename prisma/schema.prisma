@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model hdUsuario {
+  idUsuario       Int             @id @default(autoincrement())
+  nomUsuario      String
+  password        String
+  emailUsuario    String          @unique
+  numDocumento    String          @unique
+  numTelefono     String
+  hdTipoDocumento hdTipoDocumento @relation(fields: [idTipoDocumento], references: [idTipoDocumento])
+  idTipoDocumento Int
+  hdCargo         hdCargo         @relation(fields: [idCargo], references: [idCargo])
+  idCargo         Int
+  hdTicket        hdTicket[]
+}
+
+model hdTipoDocumento {
+  idTipoDocumento  Int         @id @default(autoincrement())
+  nomTipoDocumento String      @unique
+  abrNom           String      @unique
+  hdUsuario        hdUsuario[]
+}
+
+model hdCargo {
+  idCargo   Int         @id @default(autoincrement())
+  nomCargo  String      @unique
+  hdUsuario hdUsuario[]
+  hdArea    hdArea      @relation(fields: [idArea], references: [idArea])
+  idArea    Int
+}
+
+model hdArea {
+  idArea    Int       @id @default(autoincrement())
+  nomArea   String    @unique
+  hdCargo   hdCargo[]
+  hdEmpresa hdEmpresa @relation(fields: [idEmpresa], references: [idEmpresa])
+  idEmpresa Int
+}
+
+model hdEmpresa {
+  idEmpresa  Int      @id @default(autoincrement())
+  nomEmpresa String   @unique
+  hdArea     hdArea[]
+}
+
+model hdTicket {
+  idTicket          Int          @id @default(autoincrement())
+  numTicket         String       @unique
+  solicitud         String
+  fechaRegistro     DateTime
+  fechaCierre       DateTime
+  indCierre         Boolean
+  hdUsuario         hdUsuario    @relation(fields: [idUsuarioRegistra], references: [idUsuario])
+  idUsuarioRegistra Int
+  numAgilo          String
+  hdTipoSol         hdTipoSol    @relation(fields: [idTipoSol], references: [idTipoSol])
+  idTipoSol         Int
+  hdSubTipoSol      hdSubTipoSol @relation(fields: [idSubTipoSol], references: [idSubTipoSol])
+  idSubTipoSol      Int
+}
+
+model hdTipoSol {
+  idTipoSol    Int            @id @default(autoincrement())
+  nomTipoSol   String         @unique
+  abrNom       String         @unique
+  hdTicket     hdTicket[]
+  hdSubTipoSol hdSubTipoSol[]
+}
+
+model hdSubTipoSol {
+  idSubTipoSol  Int        @id @default(autoincrement())
+  nomSubTipoSol String     @unique
+  abrNom        String     @unique
+  hdTipoSol     hdTipoSol  @relation(fields: [idTipoSol], references: [idTipoSol], onDelete: NoAction, onUpdate: NoAction)
+  idTipoSol     Int
+  hdTicket      hdTicket[]
+}

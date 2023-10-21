@@ -1,0 +1,78 @@
+.mainContent {
+  padding: 10px 8px;
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  max-height: 200px;
+  gap: 2px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  opacity: 1;
+  position: relative;
+  font-size: 14px;
+  user-select: none;
+}
+
+.mainContent:hover > .closeButton {
+  opacity: 1;
+}
+
+.success {
+  background-color: rgba(0, 128, 0, 0.123);
+  color: green;
+}
+
+.success:hover {
+  background-color: rgba(0, 128, 0, 0.2);
+}
+
+.error {
+  background-color: rgba(255, 0, 0, 0.103);
+  color: red;
+}
+
+.error:hover {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.warning {
+  background-color: rgba(255, 255, 0, 0.301);
+  color: rgb(194, 182, 12);
+}
+
+.warning:hover {
+  background-color: rgba(255, 255, 0, 0.37);
+}
+
+.info {
+  background-color: rgba(0, 0, 255, 0.123);
+  color: rgb(0, 132, 255);
+}
+
+.info:hover {
+  background-color: rgba(0, 0, 255, 0.2);
+} 
+
+.hidden {
+  opacity: 0;
+}
+
+.closeButton {
+  cursor: pointer;
+  position: absolute;
+  right: 6px;
+  top: 3px;
+  padding: 0px 5px;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  opacity: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: opacity 0.3s ease-in-out;
+}

@@ -17,7 +17,7 @@
   width: 100%;
   padding: 10px;
   border-radius: 7px;
-  border: 1px solid var(--disabledColor);
+  border: 2px solid var(--disabledColor);
   font-size: var(--commonFontSize);
   color: var(--colorBlack);
   font-family: 'Nunito_Sans', sans-serif;
@@ -27,7 +27,8 @@
 
 .input:focus {
   outline: none;
-  border: 1px solid var(--colorGreen);
+  border: 2px solid var(--colorBlue);
+  box-shadow: 0px 0px 0px 2px var(--colorBlueLigth);
 }
 
 .input:focus + .labelInput {

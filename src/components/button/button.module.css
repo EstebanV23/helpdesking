@@ -1,6 +1,6 @@
 .button {
   background-color: var(--colorGray);
-  border: 1px solid var(--disabledColor);
+  border: 2px solid var(--disabledColor);
   border-radius: 4px;
   color: var(--colorWhite);
   cursor: pointer;
