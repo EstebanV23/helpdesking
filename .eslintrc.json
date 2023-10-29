@@ -29,5 +29,6 @@
         "react"
     ],
     "rules": {
+        "accessor-pairs": "off"
     }
 }

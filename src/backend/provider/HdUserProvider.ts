@@ -1,11 +1,12 @@
-import { newUserType } from '@/backend/interfaceModels/UsuarioType'
+import Usuario from '@/backend/models/Usuario'
 import bcryptHash from '@/backend/utils/bcryptHash'
 import { PrismaClient } from '@prisma/client'
+import { isNumber } from '../utils/isInstance'
 
 const prisma = new PrismaClient()
 
 class HdUserProvider {
-  async getAll () {
+  static async getAll () {
     const users = await prisma.hdUsuario.findMany({
       include: {
         hdCargo: true,
@@ -15,7 +16,7 @@ class HdUserProvider {
     return users
   }
 
-  async getById (idUser: number) {
+  static async getById (idUser: number) {
     const user = await prisma.hdUsuario.findUnique({
       where: {
         idUsuario: idUser
@@ -27,23 +28,30 @@ class HdUserProvider {
     return user
   }
 
-  async getByEmail (emailUsuario: string, password: string) {
+  static async loginByEmail (emailUsuario: string, password: string) {
     const user = await prisma.hdUsuario.findUnique({
       where: {
         emailUsuario
+      },
+      include: {
+        hdTipoDocumento: true,
+        hdCargo: true
       }
     })
     if (!user) {
       return null
     }
+
     const passwordIsValid = await bcryptHash.compare({ text: password, hash: user.password })
     if (!passwordIsValid) return null
     user.password = ''
-    return user
+    const newUser = new Usuario({ ...user, idCargo: user.hdCargo, idTipoDocumento: user.hdTipoDocumento })
+    return newUser
   }
 
-  async create (user: newUserType) {
+  static async createUser (user: Usuario) {
     const { nomUsuario: newNomusuario, emailUsuario: newEmailUsuario, idCargo: newIdCargo, numDocumento: newNumDocumento, idTipoDocumento: newIdTipoDocumento, numTelefono: newNumTelefono, password: newPassword } = user
+    if (!isNumber(newIdCargo) || !isNumber(newIdTipoDocumento)) throw new Error('El idCargo y el idTipoDocumento deben ser números')
     const newPasswordEncrypt:string = await bcryptHash.hash({ text: newPassword })
     const newUser = await prisma.hdUsuario.create({
       data: {

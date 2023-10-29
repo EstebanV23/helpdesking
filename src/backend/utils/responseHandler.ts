@@ -1,4 +1,4 @@
-import { ErrorResponse, SuccessResponse } from '@/backend/interfaceModels/responseTypes'
+import { ErrorResponse, SuccessResponse } from '@/backend/models/responseTypes'
 import { NextApiResponse } from 'next'
 
 class SuccessResponseHandler implements SuccessResponse {
@@ -24,17 +24,20 @@ class ErrorResponseHandler implements ErrorResponse {
   status: number
   message: string
   error: string
+  unknownError?: unknown
 
   constructor (params: ErrorResponse) {
     this.status = params.status
     this.message = params.message
     this.error = params.error
+    this.unknownError = params.unknownError
   }
 
   response (res: NextApiResponse) {
     res.status(this.status).json({
       message: this.message,
-      error: this.error
+      error: this.error,
+      unknownError: this.unknownError
     })
   }
 }

@@ -12,6 +12,7 @@ interface SuccessResponse extends BasicResponse {
 
 interface ErrorResponse extends BasicResponse {
   error: string
+  unknownError?: unknown
 }
 
 export type { BasicResponse, SuccessResponse, ErrorResponse }
