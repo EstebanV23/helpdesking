@@ -1,0 +1,46 @@
+Administración:
+Producto - Módulo - Funcionalidad - Versión - Severidad - Frecuencia - Es reincidente - En que equipos
+Capacitación:
+Producto - Módulo - Funcionalidad - Descripción de la capacitación - Severidad - Hora - Fecha - Lugar
+Base de datos:
+Producto - Módulo - Funcionalidad - Versión - Tabla - Campos - Severidad - Es reincidente - Justificación - Cual - Observación
+Servicios:
+Cédula - Nombre - Cargo - Area - Severidad - Tipos de servicio
+Hardware:
+Clasificación - Severidad - Frecuencia - Es Reincidente - En cuales equipos
+Software:
+Clasificación - Producto - Módulo - Funcionalidad - Versión - Pantalla/Formulario - Reporte - Continuidad - Severidad - Es reincidente - Frecuencia - Versión programada - Equipos - Usuarios
+
+Producto✅
+Módulo✅
+Funcionalidad✅
+Versión✅
+Severidad✅
+Frecuencia✅
+Es reincidente✅
+En que equipos✅
+Descripción de la capacitación✅
+Hora✅
+Fecha✅
+Lugar✅
+Tabla✅
+Campos✅
+Justificación✅
+Cual✅
+indAutorizacion✅
+Observación✅
+Cédula✅
+Nombre✅
+Cargo✅
+Area✅
+Tipos de servicio✅
+Clasificación✅
+En cuales equipos✅
+Pantalla/Formulario✅
+Reporte✅
+Continuidad✅
+Versión programada✅
+Equipos✅
+Usuarios✅
+indEnTodosEqui✅
+indConTodosUsu✅
