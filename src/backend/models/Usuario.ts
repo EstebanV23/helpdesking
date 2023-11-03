@@ -13,8 +13,9 @@ interface newUserType {
 }
 
 interface loginRequestType {
-  emailUsuario: string
+  emailUsuario?: string
   password: string
+  numDocumento?: string
 }
 
 interface requestNewUser {

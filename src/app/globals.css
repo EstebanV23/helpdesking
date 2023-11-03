@@ -1,12 +1,12 @@
 :root {
   --colorBlack: #2c2c2c;
-  --colorGray: #5c5c5c;
+  --colorGray: #8d8d8d;
   --disabledColor: #c4c4c4;
   --colorWhite: #fff;
   --colorGreen: #2e6930;
   --colorGreenLigth: #2e693059;
   --colorBlue: #4970aa;
-  --colorBlueLigth: #4970aa59;
+  --colorBlueLigth: #4970aa1b;
   --commonFontSize: 1rem;
   --smallFontSize: 0.8rem;
   --mediumFontSize: 1.2rem;

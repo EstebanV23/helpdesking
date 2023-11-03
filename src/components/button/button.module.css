@@ -1,6 +1,6 @@
 .button {
-  background-color: var(--colorGray);
-  border: 2px solid var(--disabledColor);
+  background-color: var(--colorBlue);
+  border: 2px solid var(--colorBlueLigth);
   border-radius: 4px;
   color: var(--colorWhite);
   cursor: pointer;
@@ -32,6 +32,5 @@
 }
 
 .button:hover {
-  background-color: var(--colorBlack);
-  border-color:  var(--colorGray);
+  background-color: var(--colorBlue);
 }

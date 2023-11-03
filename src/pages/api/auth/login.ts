@@ -9,9 +9,10 @@ import { isError } from '@/backend/utils/isInstance'
 export default async function login (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const { emailUsuario, password }: loginRequestType = req.body
+      const requestInfo: loginRequestType = req.body
+      console.log(requestInfo)
       validateRequest(hdUserLogin, req)
-      const userFound = await HdUserProvider.loginByEmail(emailUsuario, password)
+      const userFound = await HdUserProvider.loginByEmailNumDoc(requestInfo)
       if (userFound === null) throw new Error('Credenciales no válidas')
       new SuccessResponseHandler({ status: 200, message: 'Usuario encontrado', data: userFound }).response(res)
       res.status(200).json({ message: 'hola' })

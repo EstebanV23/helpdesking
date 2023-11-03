@@ -1,4 +1,4 @@
-import Usuario from '@/backend/models/Usuario'
+import Usuario, { loginRequestType } from '@/backend/models/Usuario'
 import bcryptHash from '@/backend/utils/bcryptHash'
 import { PrismaClient } from '@prisma/client'
 import { isNumber } from '../utils/isInstance'
@@ -28,11 +28,10 @@ class HdUserProvider {
     return user
   }
 
-  static async loginByEmail (emailUsuario: string, password: string) {
+  static async loginByEmailNumDoc ({ emailUsuario, password, numDocumento }: loginRequestType) {
+    const where = emailUsuario ? { emailUsuario } : { numDocumento }
     const user = await prisma.hdUsuario.findUnique({
-      where: {
-        emailUsuario
-      },
+      where,
       include: {
         hdTipoDocumento: true,
         hdCargo: true
@@ -50,8 +49,8 @@ class HdUserProvider {
   }
 
   static async createUser (user: Usuario) {
-    const { nomUsuario: newNomusuario, emailUsuario: newEmailUsuario, idCargo: newIdCargo, numDocumento: newNumDocumento, idTipoDocumento: newIdTipoDocumento, numTelefono: newNumTelefono, password: newPassword } = user
-    if (!isNumber(newIdCargo) || !isNumber(newIdTipoDocumento)) throw new Error('El idCargo y el idTipoDocumento deben ser números')
+    const { nomUsuario: newNomusuario, emailUsuario: newEmailUsuario, idCargo: newIdCargo, numDocumento: newNumDocumento, idTipoDocumento: newIdTipoDocumento, numTelefono: newNumTelefono, password: newPassword, idRol: newRol } = user
+    if (!isNumber(newIdCargo) || !isNumber(newIdTipoDocumento) || !isNumber(newRol)) throw new Error('El idCargo y el idTipoDocumento deben ser números')
     const newPasswordEncrypt:string = await bcryptHash.hash({ text: newPassword })
     const newUser = await prisma.hdUsuario.create({
       data: {
@@ -61,7 +60,8 @@ class HdUserProvider {
         nomUsuario: newNomusuario,
         numDocumento: newNumDocumento,
         numTelefono: newNumTelefono,
-        password: newPasswordEncrypt
+        password: newPasswordEncrypt,
+        idRol: newRol
       }
     })
     return newUser
