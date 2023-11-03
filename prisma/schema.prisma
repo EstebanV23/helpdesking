@@ -22,6 +22,16 @@ model hdUsuario {
   hdCargo         hdCargo         @relation(fields: [idCargo], references: [idCargo])
   idCargo         Int
   hdTicket        hdTicket[]
+  hdRol           hdRol           @relation(fields: [idRol], references: [idRol])
+  idRol           Int
+  hdActividad     hdActividad[]
+  hdTicketDet     hdTicketDet[]
+}
+
+model hdRol {
+  idRol     Int         @id @default(autoincrement())
+  nomRol    String      @unique
+  hdUsuario hdUsuario[]
 }
 
 model hdTipoDocumento {
@@ -32,19 +42,21 @@ model hdTipoDocumento {
 }
 
 model hdCargo {
-  idCargo   Int         @id @default(autoincrement())
-  nomCargo  String      @unique
-  hdUsuario hdUsuario[]
-  hdArea    hdArea      @relation(fields: [idArea], references: [idArea])
-  idArea    Int
+  idCargo     Int           @id @default(autoincrement())
+  nomCargo    String        @unique
+  hdUsuario   hdUsuario[]
+  hdArea      hdArea        @relation(fields: [idArea], references: [idArea])
+  idArea      Int
+  hdTicketDet hdTicketDet[]
 }
 
 model hdArea {
-  idArea    Int       @id @default(autoincrement())
-  nomArea   String    @unique
-  hdCargo   hdCargo[]
-  hdEmpresa hdEmpresa @relation(fields: [idEmpresa], references: [idEmpresa])
-  idEmpresa Int
+  idArea      Int           @id @default(autoincrement())
+  nomArea     String        @unique
+  hdCargo     hdCargo[]
+  hdEmpresa   hdEmpresa     @relation(fields: [idEmpresa], references: [idEmpresa])
+  idEmpresa   Int
+  hdTicketDet hdTicketDet[]
 }
 
 model hdEmpresa {
@@ -54,19 +66,31 @@ model hdEmpresa {
 }
 
 model hdTicket {
-  idTicket          Int          @id @default(autoincrement())
-  numTicket         String       @unique
+  idTicket          Int           @id @default(autoincrement())
+  numTicket         String        @unique
   solicitud         String
   fechaRegistro     DateTime
   fechaCierre       DateTime
   indCierre         Boolean
-  hdUsuario         hdUsuario    @relation(fields: [idUsuarioRegistra], references: [idUsuario])
+  hdUsuario         hdUsuario     @relation(fields: [idUsuarioRegistra], references: [idUsuario], onDelete: NoAction, onUpdate: NoAction)
   idUsuarioRegistra Int
   numAgilo          String
-  hdTipoSol         hdTipoSol    @relation(fields: [idTipoSol], references: [idTipoSol])
+  hdTipoSol         hdTipoSol     @relation(fields: [idTipoSol], references: [idTipoSol])
   idTipoSol         Int
-  hdSubTipoSol      hdSubTipoSol @relation(fields: [idSubTipoSol], references: [idSubTipoSol])
+  hdSubTipoSol      hdSubTipoSol  @relation(fields: [idSubTipoSol], references: [idSubTipoSol])
   idSubTipoSol      Int
+  hdActividad       hdActividad[]
+  hdTicketDet       hdTicketDet[]
+}
+
+model hdActividad {
+  idActividad  Int       @id @default(autoincrement())
+  nomActividad String    @unique
+  desActividad String
+  hdTicket     hdTicket  @relation(fields: [idTicket], references: [idTicket])
+  idTicket     Int
+  hdUsuario    hdUsuario @relation(fields: [idUsuario], references: [idUsuario])
+  idUsuario    Int
 }
 
 model hdTipoSol {
@@ -75,6 +99,7 @@ model hdTipoSol {
   abrNom       String         @unique
   hdTicket     hdTicket[]
   hdSubTipoSol hdSubTipoSol[]
+  hdTicketDet  hdTicketDet[]
 }
 
 model hdSubTipoSol {
@@ -84,4 +109,109 @@ model hdSubTipoSol {
   hdTipoSol     hdTipoSol  @relation(fields: [idTipoSol], references: [idTipoSol], onDelete: NoAction, onUpdate: NoAction)
   idTipoSol     Int
   hdTicket      hdTicket[]
+}
+
+model hdProducto {
+  idProducto  Int           @id @default(autoincrement())
+  nomProducto String        @unique
+  desProducto String
+  hdModulo    hdModulo[]
+  hdTicketDet hdTicketDet[]
+}
+
+model hdModulo {
+  idModulo        Int               @id @default(autoincrement())
+  nomModulo       String            @unique
+  desModulo       String
+  idProducto      Int
+  hdProducto      hdProducto        @relation(fields: [idProducto], references: [idProducto], onDelete: NoAction, onUpdate: NoAction)
+  hdFuncionalidad hdFuncionalidad[]
+  hdTicketDet     hdTicketDet[]
+}
+
+model hdFuncionalidad {
+  idFuncionalidad  Int           @id @default(autoincrement())
+  nomFuncionalidad String        @unique
+  desFuncionalidad String
+  idModulo         Int
+  hdModulo         hdModulo      @relation(fields: [idModulo], references: [idModulo], onDelete: NoAction, onUpdate: NoAction)
+  hdTicketDet      hdTicketDet[]
+}
+
+model hdLista {
+  idLista      Int           @id @default(autoincrement())
+  nomLista     String        @unique
+  desLista     String
+  idTipoLista  Int
+  hdTipoLista  hdTipoLista   @relation(fields: [idTipoLista], references: [idTipoLista], onDelete: NoAction, onUpdate: NoAction)
+  hdTicketDet  hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idSeveridadLista")
+  hdTicketDet2 hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idContinuidadLista")
+  hdTicketDet3 hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idJustificacionLista")
+  hdTicketDet4 hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idSoftClasiLista")
+}
+
+model hdTipoLista {
+  idTipoLista  Int       @id @default(autoincrement())
+  nomTipoLista String    @unique
+  hdLista      hdLista[]
+}
+
+model hdTipoServicio {
+  idTipoServicio  Int           @id @default(autoincrement())
+  codServicio     String        @unique
+  nomTipoServicio String        @unique
+  hdTicketDet     hdTicketDet[]
+}
+
+model hdTicketDet {
+  idTicketDet          Int              @id @default(autoincrement())
+  hdProducto           hdProducto       @relation(fields: [idProducto], references: [idProducto], onDelete: NoAction, onUpdate: NoAction)
+  idProducto           Int
+  hdModulo             hdModulo         @relation(fields: [idModulo], references: [idModulo], onDelete: NoAction, onUpdate: NoAction)
+  idModulo             Int
+  hdFuncionalidad      hdFuncionalidad  @relation(fields: [idFuncionalidad], references: [idFuncionalidad], onDelete: NoAction, onUpdate: NoAction)
+  idFuncionalidad      Int
+  version              String
+  hdLista              hdLista          @relation(fields: [idSeveridadLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idSeveridadLista")
+  idSeveridadLista     Int
+  hdLista2             hdLista          @relation(fields: [idContinuidadLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idContinuidadLista")
+  idContinuidadLista   Int
+  indReincidente       Boolean
+  equiposDet           String
+  capaciDes            String
+  capaciFec            DateTime
+  capaciLug            String
+  dbTabla              String
+  dbCampos             String
+  hdLista3             hdLista          @relation(fields: [idJustificacionLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idJustificacionLista")
+  idJustificacionLista Int
+  dbCual               String
+  dbIndAut             Boolean
+  dbObser              String
+  servNumDoc           String
+  servNomUsu           String
+  hdCargo              hdCargo          @relation(fields: [idCargo], references: [idCargo], onDelete: NoAction, onUpdate: NoAction)
+  idCargo              Int
+  hdArea               hdArea           @relation(fields: [idArea], references: [idArea], onDelete: NoAction, onUpdate: NoAction)
+  idArea               Int
+  hardEquipo           String
+  hdLista4             hdLista          @relation(fields: [idSoftClasiLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idSoftClasiLista")
+  idSoftClasiLista     Int
+  softPantalla         String
+  softReporte          String
+  softVersProg         String
+  softEquipo           String
+  softUsuarios         String
+  softIndTodEqui       Boolean
+  softIndTodUsu        Boolean
+  hdTipoSol            hdTipoSol        @relation(fields: [idTipoSol], references: [idTipoSol], onDelete: NoAction, onUpdate: NoAction)
+  idTipoSol            Int
+  indHabilitado        Boolean
+  fecRegistro          DateTime
+  fecModificacion      DateTime
+  hdUsuario            hdUsuario        @relation(fields: [idUsuario], references: [idUsuario], onDelete: NoAction, onUpdate: NoAction)
+  hdTicket             hdTicket         @relation(fields: [idTicket], references: [idTicket], onDelete: NoAction, onUpdate: NoAction)
+  idTicket             Int
+  idUsuario            Int
+  hdTipoServicio       hdTipoServicio[]
 }
