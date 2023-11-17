@@ -12,7 +12,7 @@ export default function Home () {
     <main className={styles.fullContent}>
       <section className={styles.contentMain}>
         <section className={styles.contentImage}>
-          <Image src={pathImages.bgImage1} alt='' className={styles.image} width={1920} height={1080} />
+          <Image src={pathImages.bgImage1} alt='Logo of fcv' className={styles.image} width={1920} height={1080} />
           <div className={styles.filterBlack} />
           <Image src={pathImages.logoFcv} alt='' className={styles.logo} width={300} height={300} />
         </section>

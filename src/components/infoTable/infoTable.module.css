@@ -1,0 +1,21 @@
+.table {
+    width: 100%;
+}
+
+.table > * {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--colorGrayLigth);
+}
+
+
+.table > *:nth-child(odd) {
+    background-color: var(--colorGrayMegaLigth);
+}
+
+.table > *:hover {
+    background-color: var(--colorBlueLigth);
+}

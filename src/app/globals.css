@@ -5,8 +5,18 @@
   --colorWhite: #fff;
   --colorGreen: #2e6930;
   --colorGreenLigth: #2e693059;
-  --colorBlue: #4970aa;
-  --colorBlueLigth: #4970aa1b;
+  --colorBlue: #89b4f5;
+  --colorBlueDark: #3a5e8c;
+  --colorBlueLigth: #e0edff;
+  --colorBlueLigthHover: #cce0fa;
+  --colorGrayLigth: #f5f5f5;
+  --colorGrayMegaLigth: #f9f9f9;
+  --colorRed: #ff0000;
+  --colorRedLigth: #ff000059;
+  --errorColorLigth: rgb(255, 229, 229);
+  --errorColorLigthHover: rgb(252, 199, 199);
+  --errorColorBorder: rgb(255, 92, 92);
+  --errorColor: rgb(255, 134, 134);
   --commonFontSize: 1rem;
   --smallFontSize: 0.8rem;
   --mediumFontSize: 1.2rem;
@@ -16,7 +26,7 @@
   --extraExtraExtraLargeFontSize: 4.8rem;
 }
 
-input, textarea, select { font-family:inherit!important; }
+input, textarea, select { font-family:inherit !important; }
 * {
   box-sizing: border-box;
   margin: 0;

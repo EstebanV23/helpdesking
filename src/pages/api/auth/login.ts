@@ -5,20 +5,19 @@ import { ErrorResponseHandler, SuccessResponseHandler } from '@/backend/utils/re
 import validateRequest from '@/backend/utils/validation'
 import { hdUserLogin } from '@/backend/validationModels/HdUserValidation'
 import { isError } from '@/backend/utils/isInstance'
+import { jwtCreateToken } from '@/backend/utils/jwtHandler'
 
 export default async function login (req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    try {
-      const requestInfo: loginRequestType = req.body
-      console.log(requestInfo)
-      validateRequest(hdUserLogin, req)
-      const userFound = await HdUserProvider.loginByEmailNumDoc(requestInfo)
-      if (userFound === null) throw new Error('Credenciales no válidas')
-      new SuccessResponseHandler({ status: 200, message: 'Usuario encontrado', data: userFound }).response(res)
-      res.status(200).json({ message: 'hola' })
-    } catch (error) {
-      if (isError(error)) new ErrorResponseHandler({ status: 400, message: 'Credenciales no válidas', error: error.message }).response(res)
-      new ErrorResponseHandler({ status: 400, message: 'Error no manejado', error: 'Error no manejado', unknownError: error }).response(res)
-    }
+  try {
+    const requestInfo: loginRequestType = req.body
+    validateRequest(hdUserLogin, req)
+    const userFound = await HdUserProvider.loginByEmailNumDoc(requestInfo)
+    if (userFound === null) throw new Error('Credenciales no válidas')
+    const { idUsuario, numDocumento, nomUsuario, idRol, idCargo } = userFound
+    const token = await jwtCreateToken({ payload: { idUsuario, numDocumento, nomUsuario, idRol, idCargo } })
+    new SuccessResponseHandler({ status: 200, message: 'Usuario encontrado', data: { user: userFound, token } }).response(res)
+  } catch (error) {
+    if (isError(error)) new ErrorResponseHandler({ status: 400, message: 'Credenciales no válidas', error: error.message }).response(res)
+    new ErrorResponseHandler({ status: 400, message: 'Error no manejado', error: 'Error no manejado', unknownError: error }).response(res)
   }
 }

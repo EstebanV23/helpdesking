@@ -1,0 +1,23 @@
+.mainTitle {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: var(--colorBlack);
+  margin: auto;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.textMain {
+  font-size: 0.9rem;
+  color: var(--colorGray);
+  margin: auto;
+  text-align: center;
+  margin: 15px auto;
+  max-width: 600px;
+}
+
+.contentMain {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 20px;
+}

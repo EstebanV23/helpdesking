@@ -1,0 +1,45 @@
+.defaultStyle {
+  text-decoration: none;
+  color: var(--colorGray);
+  padding: 8px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.defaultStyle:hover {
+  color: var(--colorBlue);
+  text-decoration: underline;
+  background-color: var(--colorBlueLigth);
+}
+
+.textPop {
+  position: absolute;
+  width: max-content;
+  background-color: var(--colorGrayLigth);
+  color: var(--colorGray);
+  padding: 5px;
+  border-radius: 2px;
+  font-size: var(--smallFontSize);
+  font-weight: bold;
+  max-width: 200px;
+  opacity: 0;
+  display: block;
+  transition: all 0.3s ease-in-out;
+  visibility: hidden;
+}
+
+.defaultStyle:hover .textPop {
+  opacity: 1;
+  visibility: visible;
+}
+
+.leftAnimate, .rightAnimate {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.topAnimate, .bottomAnimate {
+  left: 50%;
+  transform: translateX(-50%);
+}

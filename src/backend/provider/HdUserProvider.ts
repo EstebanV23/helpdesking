@@ -34,7 +34,15 @@ class HdUserProvider {
       where,
       include: {
         hdTipoDocumento: true,
-        hdCargo: true
+        hdCargo: {
+          include: {
+            hdArea: {
+              include: {
+                hdEmpresa: true
+              }
+            }
+          }
+        }
       }
     })
     if (!user) {

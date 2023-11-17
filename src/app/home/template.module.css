@@ -1,0 +1,21 @@
+.contenNav {
+  display: flex;
+  padding: 7px;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.navMain {
+  background-color: var(--colorGrayMegaLigth);
+}
+
+.contentMainLimit {
+  width: 100%;
+  max-width: 1500px;
+  margin: auto;
+}
