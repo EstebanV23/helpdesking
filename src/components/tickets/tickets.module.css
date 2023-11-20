@@ -1,0 +1,5 @@
+.ticketContent {
+  width: 100%;
+  grid-area: ticket;
+  background-color: aqua;
+}

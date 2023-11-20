@@ -8,6 +8,7 @@ import Area from '@/backend/models/Area'
 import Empresa from '@/backend/models/Empresa'
 import TipoDocumento from '@/backend/models/TipoDocumento'
 import InfoTable from '../infoTable/infoTable'
+import Style from './userInfo.module.css'
 
 export default function UserInfo () {
   const { user } = useContext(UserContext)
@@ -26,7 +27,7 @@ export default function UserInfo () {
   const { nomTipoDocumento, abrNom } = idTipoDocumento as TipoDocumento
 
   return (
-    <section>
+    <section className={Style.contentMain}>
       <h2>Datos del colaborador</h2>
       <InfoTable>
         <p><strong>Nombre:</strong> {nomUsuario}</p>

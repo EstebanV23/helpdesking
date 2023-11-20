@@ -1,9 +1,7 @@
 import Usuario, { loginRequestType } from '@/backend/models/Usuario'
 import bcryptHash from '@/backend/utils/bcryptHash'
-import { PrismaClient } from '@prisma/client'
+import prisma from './PrismaProvider'
 import { isNumber } from '../utils/isInstance'
-
-const prisma = new PrismaClient()
 
 class HdUserProvider {
   static async getAll () {

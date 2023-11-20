@@ -18,6 +18,20 @@
 
 .contentMain {
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: 
+  "userInfo ticket ticket"
+  ;
   gap: 20px;
+  padding: 15px;
+}
+
+@media screen and (max-width: 1000px) {
+  .contentMain {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 
+    "userInfo userInfo"
+    "ticket ticket"
+    ;
+  }
 }

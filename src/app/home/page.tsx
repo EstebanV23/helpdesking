@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Style from './page.module.css'
 import UserInfo from '@/components/userInfo/userInfo'

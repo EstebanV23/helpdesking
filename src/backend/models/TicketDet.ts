@@ -1,4 +1,5 @@
 import Area from './Area'
+import BaseDatos from './BaseDatos'
 import Cargo from './Cargo'
 import Funcionalidad from './Funcionalidad'
 import Lista from './Lista'
@@ -42,9 +43,10 @@ class TicketDet {
   indHabilitado: boolean
   fecRegistro: Date
   fecModificacion: Date
+  idBaseDatos?: BaseDatos | number
 
   constructor (data: TicketDet) {
-    const { idTicketDet, idProducto, idTicket, idModulo, idFuncionalidad, version, idListSeve, idListConti, indReincidente, equiposDet, capaciDes, capaciFec, capaciLug, dbTabla, dbCampos, idListJust, dbCual, dbIndAut, dbObserv, serNumDoc, idCargo, idArea, idListHardCla, hardEquipos, idListSoftCla, softPantalla, softReporte, softVersProg, softEquip, softUsuarios, softIndTodEqui, idListTipoSol, indHabilitado, fecRegistro, fecModificacion } = data
+    const { idTicketDet, idProducto, idTicket, idModulo, idFuncionalidad, version, idListSeve, idListConti, indReincidente, equiposDet, capaciDes, capaciFec, capaciLug, dbTabla, dbCampos, idListJust, dbCual, dbIndAut, dbObserv, serNumDoc, idCargo, idArea, idListHardCla, hardEquipos, idListSoftCla, softPantalla, softReporte, softVersProg, softEquip, softUsuarios, softIndTodEqui, idListTipoSol, indHabilitado, fecRegistro, fecModificacion, idBaseDatos } = data
     this.idTicketDet = idTicketDet
     this.idProducto = idProducto
     this.idTicket = idTicket
@@ -80,6 +82,7 @@ class TicketDet {
     this.indHabilitado = indHabilitado
     this.fecRegistro = fecRegistro
     this.fecModificacion = fecModificacion
+    this.idBaseDatos = idBaseDatos
   }
 }
 

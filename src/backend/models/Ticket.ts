@@ -4,19 +4,18 @@ import Usuario from './Usuario'
 
 class Ticket {
   idTicket: number
-  numTicket: string
   solicitud: string
   fechaRegistro: Date
-  fechaCierre: Date
-  indCierre: boolean
+  fechaCierre?: Date
+  indCierre?: boolean
   idUsuarioRegistra: Usuario | number
-  numAgilo: string
-  idTipoSol?: TipoSol | number
-  idSUbTipoSol?: SubTipoSol | number
+  numAgilo?: string
+  idTipoSol: TipoSol | number
+  idSubTipoSol?: SubTipoSol | number
+  idUsuarioResponsable: Usuario | number
   constructor (data: Ticket) {
-    const { idTicket, numTicket, solicitud, fechaRegistro, fechaCierre, indCierre, idUsuarioRegistra, numAgilo, idTipoSol, idSUbTipoSol } = data
+    const { idTicket, solicitud, fechaRegistro, fechaCierre, indCierre, idUsuarioRegistra, numAgilo, idTipoSol, idSubTipoSol, idUsuarioResponsable } = data
     this.idTicket = idTicket
-    this.numTicket = numTicket
     this.solicitud = solicitud
     this.fechaRegistro = fechaRegistro
     this.fechaCierre = fechaCierre
@@ -24,7 +23,8 @@ class Ticket {
     this.idUsuarioRegistra = idUsuarioRegistra
     this.numAgilo = numAgilo
     this.idTipoSol = idTipoSol
-    this.idSUbTipoSol = idSUbTipoSol
+    this.idSubTipoSol = idSubTipoSol
+    this.idUsuarioResponsable = idUsuarioResponsable
   }
 }
 
