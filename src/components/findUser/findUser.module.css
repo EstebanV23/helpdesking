@@ -1,0 +1,21 @@
+.contentUser {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  min-width: 800px;
+}
+
+.skeleton {
+  min-width: 800px;
+  margin-top: 20px;
+}
+
+.contentUser td, .contentUser th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.contentUser tr:has(> td):hover {
+  background-color: #dddddd69;
+  cursor: pointer;
+}

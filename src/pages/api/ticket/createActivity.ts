@@ -5,6 +5,7 @@ import validateTokenRequest from '@/backend/utils/validateTokenRequest'
 import { hdActivityCreate } from '@/backend/validationModels/HdActivityValidation'
 import Actividad from '@/backend/models/Actividad'
 import HdActividadProvider from '@/backend/provider/HdActividadProvider'
+import { isError } from '@/backend/utils/isInstance'
 
 export default async function create (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -17,7 +18,8 @@ export default async function create (req: NextApiRequest, res: NextApiResponse)
       const activity = await HdActividadProvider.createHdActividad(requestType)
       new SuccessResponseHandler({ status: 200, message: `Actividad creada para el ticket ${activity.idTicket}`, data: activity }).response(res)
     } catch (error) {
-      new ErrorResponseHandler({ status: 400, message: 'Error al crear la actividad', error: error.message }).response(res)
+      if (isError(error)) return new ErrorResponseHandler({ status: 400, message: 'Error al crear la actividad', error: error.message }).response(res)
+      new ErrorResponseHandler({ status: 400, message: 'Error no manejado', error: 'Error no manejado', unknownError: error }).response(res)
       console.log(error)
     }
   }

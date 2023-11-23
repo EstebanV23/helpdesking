@@ -1,6 +1,13 @@
+.displayContent {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
 .contenNav {
   display: flex;
-  padding: 7px;
+  flex-direction: column;
+  padding: 12px 6px;
   gap: 10px;
   align-items: center;
   justify-content: center;
@@ -8,14 +15,18 @@
   max-width: 1000px;
   margin: auto;
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .navMain {
-  background-color: var(--colorGrayMegaLigth);
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
 }
 
 .contentMainLimit {
   width: 100%;
   max-width: 1500px;
   margin: auto;
+  padding: 10px;
 }

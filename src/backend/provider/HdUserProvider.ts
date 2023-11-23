@@ -6,9 +6,27 @@ import { isNumber } from '../utils/isInstance'
 class HdUserProvider {
   static async getAll () {
     const users = await prisma.hdUsuario.findMany({
-      include: {
-        hdCargo: true,
-        hdTipoDocumento: true
+      select: {
+        idUsuario: true,
+        nomUsuario: true,
+        emailUsuario: true,
+        numDocumento: true,
+        numTelefono: true,
+        hdCargo: {
+          select: {
+            nomCargo: true,
+            hdArea: {
+              select: {
+                nomArea: true,
+                hdEmpresa: {
+                  select: {
+                    nomEmpresa: true
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     })
     return users
@@ -71,6 +89,29 @@ class HdUserProvider {
       }
     })
     return newUser
+  }
+
+  static async getUserByNumDocumento (numDocumento: string) {
+    const user = await prisma.hdUsuario.findMany({
+      where: {
+        numDocumento: {
+          contains: numDocumento
+        }
+      },
+      include: {
+        hdTipoDocumento: true,
+        hdCargo: {
+          include: {
+            hdArea: {
+              include: {
+                hdEmpresa: true
+              }
+            }
+          }
+        }
+      }
+    })
+    return user
   }
 }
 

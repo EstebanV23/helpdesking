@@ -12,11 +12,11 @@ datasource db {
 
 model hdUsuario {
   idUsuario       Int             @id @default(autoincrement())
-  nomUsuario      String
+  nomUsuario      String          @db.NVarChar(60)
   password        String
-  emailUsuario    String          @unique
-  numDocumento    String          @unique
-  numTelefono     String
+  emailUsuario    String          @unique @db.NVarChar(100)
+  numDocumento    String          @unique @db.NVarChar(12)
+  numTelefono     String          @db.NVarChar(15)
   hdTipoDocumento hdTipoDocumento @relation(fields: [idTipoDocumento], references: [idTipoDocumento])
   idTipoDocumento Int
   hdCargo         hdCargo         @relation(fields: [idCargo], references: [idCargo])
@@ -68,10 +68,11 @@ model hdEmpresa {
 
 model hdTicket {
   idTicket             Int           @id @default(autoincrement())
-  solicitud            String
+  solicitud            String        @db.NVarChar(500)
   fechaRegistro        DateTime      @default(now())
   fechaCierre          DateTime?
   indCierre            Boolean?      @default(false)
+  fecModificacion      DateTime      @updatedAt
   hdUsuario            hdUsuario     @relation(fields: [idUsuarioRegistra], references: [idUsuario], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicket_hdUsuario_idUsuarioRegistra")
   idUsuarioRegistra    Int
   hdUsuario2           hdUsuario     @relation(fields: [idUsuarioResponsable], references: [idUsuario], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicket_hdUsuario_idUsuarioResponsable")
@@ -87,7 +88,7 @@ model hdTicket {
 
 model hdActividad {
   idActividad  Int       @id @default(autoincrement())
-  desActividad String
+  desActividad String    @db.NText
   hdTicket     hdTicket  @relation(fields: [idTicket], references: [idTicket])
   idTicket     Int
   hdUsuario    hdUsuario @relation(fields: [idUsuario], references: [idUsuario])
@@ -150,6 +151,8 @@ model hdLista {
   hdTicketDet2 hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idContinuidadLista")
   hdTicketDet3 hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idJustificacionLista")
   hdTicketDet4 hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idSoftClasiLista")
+  hdTicketDet5 hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idHardClasiLista")
+  hdTicketDet6 hdTicketDet[] @relation("FK_hdTicketDet_hdLista_idFrecuenciaLista")
 }
 
 model hdTipoLista {
@@ -174,48 +177,52 @@ model hdBaseDatos {
 
 model hdTicketDet {
   idTicketDet          Int              @id @default(autoincrement())
-  hdProducto           hdProducto       @relation(fields: [idProducto], references: [idProducto], onDelete: NoAction, onUpdate: NoAction)
-  idProducto           Int
-  hdModulo             hdModulo         @relation(fields: [idModulo], references: [idModulo], onDelete: NoAction, onUpdate: NoAction)
-  idModulo             Int
-  hdFuncionalidad      hdFuncionalidad  @relation(fields: [idFuncionalidad], references: [idFuncionalidad], onDelete: NoAction, onUpdate: NoAction)
-  idFuncionalidad      Int
-  version              String
-  hdLista              hdLista          @relation(fields: [idSeveridadLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idSeveridadLista")
-  idSeveridadLista     Int
-  hdLista2             hdLista          @relation(fields: [idContinuidadLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idContinuidadLista")
-  idContinuidadLista   Int
-  indReincidente       Boolean
-  equiposDet           String
-  capaciDes            String
-  capaciFec            DateTime
-  capaciLug            String
-  dbTabla              String
-  dbCampos             String
-  hdLista3             hdLista          @relation(fields: [idJustificacionLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idJustificacionLista")
-  idJustificacionLista Int
-  dbCual               String
-  dbIndAut             Boolean
-  dbObser              String
-  servNumDoc           String
-  servNomUsu           String
-  hdCargo              hdCargo          @relation(fields: [idCargo], references: [idCargo], onDelete: NoAction, onUpdate: NoAction)
-  idCargo              Int
-  hdArea               hdArea           @relation(fields: [idArea], references: [idArea], onDelete: NoAction, onUpdate: NoAction)
-  idArea               Int
-  hardEquipo           String
-  hdLista4             hdLista          @relation(fields: [idSoftClasiLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idSoftClasiLista")
-  idSoftClasiLista     Int
-  softPantalla         String
-  softReporte          String
-  softVersProg         String
-  softEquipo           String
-  softUsuarios         String
-  softIndTodEqui       Boolean
-  softIndTodUsu        Boolean
+  hdProducto           hdProducto?      @relation(fields: [idProducto], references: [idProducto], onDelete: NoAction, onUpdate: NoAction)
+  idProducto           Int?
+  hdModulo             hdModulo?        @relation(fields: [idModulo], references: [idModulo], onDelete: NoAction, onUpdate: NoAction)
+  idModulo             Int?
+  hdFuncionalidad      hdFuncionalidad? @relation(fields: [idFuncionalidad], references: [idFuncionalidad], onDelete: NoAction, onUpdate: NoAction)
+  idFuncionalidad      Int?
+  version              String?
+  hdLista              hdLista?         @relation(fields: [idSeveridadLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idSeveridadLista")
+  idSeveridadLista     Int?
+  hdLista2             hdLista?         @relation(fields: [idContinuidadLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idContinuidadLista")
+  idContinuidadLista   Int?
+  hdLista6             hdLista?         @relation(fields: [idFrecuenciaLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idFrecuenciaLista")
+  idFrecuenciaLista    Int?
+  indReincidente       Boolean?
+  equiposDet           String?
+  capaciDes            String?          @db.NVarChar(200) 
+  capaciFec            DateTime?
+  capaciLug            String?
+  dbTabla              String?
+  dbCampos             String?
+  hdLista3             hdLista?         @relation(fields: [idJustificacionLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idJustificacionLista")
+  idJustificacionLista Int?
+  dbCual               String?
+  dbIndAut             Boolean?
+  dbObser              String?
+  servNumDoc           String?
+  servNomUsu           String?
+  hdCargo              hdCargo?         @relation(fields: [idCargo], references: [idCargo], onDelete: NoAction, onUpdate: NoAction)
+  idCargo              Int?
+  hdArea               hdArea?          @relation(fields: [idArea], references: [idArea], onDelete: NoAction, onUpdate: NoAction)
+  idArea               Int?
+  idHardClasiLista     Int?
+  hdLista5             hdLista?         @relation(fields: [idHardClasiLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idHardClasiLista")
+  hardEquipo           String?
+  hdLista4             hdLista?         @relation(fields: [idSoftClasiLista], references: [idLista], onDelete: NoAction, onUpdate: NoAction, name: "FK_hdTicketDet_hdLista_idSoftClasiLista")
+  idSoftClasiLista     Int?
+  softPantalla         String?
+  softReporte          String?
+  softVersProg         String?
+  softEquipo           String?
+  softUsuarios         String?
+  softIndTodEqui       Boolean?
+  softIndTodUsu        Boolean?
   hdTipoSol            hdTipoSol        @relation(fields: [idTipoSol], references: [idTipoSol], onDelete: NoAction, onUpdate: NoAction)
   idTipoSol            Int
-  indHabilitado        Boolean
+  indHabilitado        Boolean          @default(true)
   fecRegistro          DateTime         @default(now())
   fecModificacion      DateTime         @updatedAt
   hdUsuario            hdUsuario        @relation(fields: [idUsuario], references: [idUsuario], onDelete: NoAction, onUpdate: NoAction)
@@ -223,6 +230,6 @@ model hdTicketDet {
   idTicket             Int
   idUsuario            Int
   hdTipoServicio       hdTipoServicio[]
-  hdBaseDatos          hdBaseDatos      @relation(fields: [idBaseDatos], references: [idBaseDatos], onDelete: NoAction, onUpdate: NoAction)
-  idBaseDatos          Int
+  hdBaseDatos          hdBaseDatos?     @relation(fields: [idBaseDatos], references: [idBaseDatos], onDelete: NoAction, onUpdate: NoAction)
+  idBaseDatos          Int?
 }

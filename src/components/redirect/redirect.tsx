@@ -3,6 +3,7 @@ import React from 'react'
 import Style from './redirect.module.css'
 import { ButtonProps, functionHandle } from '../button/button'
 import StyleButton from '../button/button.module.css'
+import PopText from '../popText/popText'
 
 const backgroundsColors = {
   success: Style.success,
@@ -16,17 +17,21 @@ type Props = {
   href: string
   props?: React.HTMLAttributes<HTMLAnchorElement>
   background?: keyof typeof backgroundsColors
+  popText?: string
+  position?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-export default function Redirect ({ href, props, children, background }: Props) {
+export default function Redirect ({ href, props, children, background, popText, position = 'right' }: Props) {
   return (
-    <Link
-      href={href}
-      className={`${Style.redirect} ${background && backgroundsColors[background]}`}
-      {...props}
-    >
-      {children}
-    </Link>
+    <PopText popText={popText} position={position}>
+      <Link
+        href={href}
+        className={`${Style.redirect} ${background && backgroundsColors[background]}`}
+        {...props}
+      >
+        {children}
+      </Link>
+    </PopText>
   )
 }
 

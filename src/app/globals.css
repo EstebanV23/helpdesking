@@ -32,3 +32,24 @@ input, textarea, select { font-family:inherit !important; }
   margin: 0;
   padding: 0;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--colorGrayMegaLigth);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--colorGrayLigth);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--colorGray);
+}

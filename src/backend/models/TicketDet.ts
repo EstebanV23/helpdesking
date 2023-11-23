@@ -6,6 +6,8 @@ import Lista from './Lista'
 import Modulo from './Modulo'
 import Producto from './Producto'
 import Ticket from './Ticket'
+import TipoSol from './TipoSol'
+import Usuario from './Usuario'
 
 class TicketDet {
   idTicketDet: number
@@ -14,8 +16,8 @@ class TicketDet {
   idModulo?: Modulo | number
   idFuncionalidad?: Funcionalidad | number
   version?: string
-  idListSeve?: Lista | number
-  idListConti?: Lista | number
+  idSeveridadLista?: Lista | number
+  idContinuidadLista?: Lista | number
   indReincidente?: boolean
   equiposDet?: string
   capaciDes?: string
@@ -23,38 +25,40 @@ class TicketDet {
   capaciLug?: string
   dbTabla?: string
   dbCampos?: string
-  idListJust?: Lista | number
+  idFrecuenciaLista?: Lista | number
+  idJustificacionLista?: Lista | number
   dbCual?: string
   dbIndAut?: boolean
-  dbObserv?: string
-  serNumDoc?: string
+  dbObser?: string
+  servNumDoc?: string
   idCargo?: Cargo | number
   idArea?: Area | number
-  idListHardCla?: Lista | number
-  hardEquipos?: string
-  idListSoftCla?: Lista | number
+  idHardClasiLista?: Lista | number
+  hardEquipo?: string
+  idSoftClasiLista?: Lista | number
   softPantalla?: string
   softReporte?: string
   softVersProg?: string
-  softEquip?: string
+  softEquipo?: string
   softUsuarios?: string
   softIndTodEqui?: boolean
-  idListTipoSol?: Lista | number
+  idTipoSol: TipoSol | number
   indHabilitado: boolean
   fecRegistro: Date
   fecModificacion: Date
   idBaseDatos?: BaseDatos | number
+  idUsuario: Usuario | number
 
   constructor (data: TicketDet) {
-    const { idTicketDet, idProducto, idTicket, idModulo, idFuncionalidad, version, idListSeve, idListConti, indReincidente, equiposDet, capaciDes, capaciFec, capaciLug, dbTabla, dbCampos, idListJust, dbCual, dbIndAut, dbObserv, serNumDoc, idCargo, idArea, idListHardCla, hardEquipos, idListSoftCla, softPantalla, softReporte, softVersProg, softEquip, softUsuarios, softIndTodEqui, idListTipoSol, indHabilitado, fecRegistro, fecModificacion, idBaseDatos } = data
+    const { idTicketDet, idProducto, idTicket, idModulo, idFuncionalidad, version, idSeveridadLista, idContinuidadLista, indReincidente, equiposDet, capaciDes, capaciFec, capaciLug, dbTabla, dbCampos, idJustificacionLista, dbCual, dbIndAut, dbObser, servNumDoc, idCargo, idArea, idHardClasiLista, hardEquipo, idSoftClasiLista, softPantalla, softReporte, softVersProg, softEquipo, softUsuarios, softIndTodEqui, idTipoSol, indHabilitado, fecRegistro, fecModificacion, idBaseDatos, idUsuario } = data
     this.idTicketDet = idTicketDet
     this.idProducto = idProducto
     this.idTicket = idTicket
     this.idModulo = idModulo
     this.idFuncionalidad = idFuncionalidad
     this.version = version
-    this.idListSeve = idListSeve
-    this.idListConti = idListConti
+    this.idSeveridadLista = idSeveridadLista
+    this.idContinuidadLista = idContinuidadLista
     this.indReincidente = indReincidente
     this.equiposDet = equiposDet
     this.capaciDes = capaciDes
@@ -62,27 +66,28 @@ class TicketDet {
     this.capaciLug = capaciLug
     this.dbTabla = dbTabla
     this.dbCampos = dbCampos
-    this.idListJust = idListJust
+    this.idJustificacionLista = idJustificacionLista
     this.dbCual = dbCual
     this.dbIndAut = dbIndAut
-    this.dbObserv = dbObserv
-    this.serNumDoc = serNumDoc
+    this.dbObser = dbObser
+    this.servNumDoc = servNumDoc
     this.idCargo = idCargo
     this.idArea = idArea
-    this.idListHardCla = idListHardCla
-    this.hardEquipos = hardEquipos
-    this.idListSoftCla = idListSoftCla
+    this.idHardClasiLista = idHardClasiLista
+    this.hardEquipo = hardEquipo
+    this.idSoftClasiLista = idSoftClasiLista
     this.softPantalla = softPantalla
     this.softReporte = softReporte
     this.softVersProg = softVersProg
-    this.softEquip = softEquip
+    this.softEquipo = softEquipo
     this.softUsuarios = softUsuarios
     this.softIndTodEqui = softIndTodEqui
-    this.idListTipoSol = idListTipoSol
+    this.idTipoSol = idTipoSol
     this.indHabilitado = indHabilitado
     this.fecRegistro = fecRegistro
     this.fecModificacion = fecModificacion
     this.idBaseDatos = idBaseDatos
+    this.idUsuario = idUsuario
   }
 }
 

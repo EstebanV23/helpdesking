@@ -1,4 +1,5 @@
 import HdActividadProvider from '@/backend/provider/HdActividadProvider'
+import { isError } from '@/backend/utils/isInstance'
 import { ErrorResponseHandler, SuccessResponseHandler } from '@/backend/utils/responseHandler'
 import validateTokenRequest from '@/backend/utils/validateTokenRequest'
 import validateRequest from '@/backend/utils/validation'
@@ -19,7 +20,8 @@ export default async function getActTicket (req: NextApiRequest, res: NextApiRes
       const activity = await HdActividadProvider.getAllActivitiesFromTicket(requestType.idTicket)
       new SuccessResponseHandler({ status: 200, message: 'Actividades del ticket encontradas', data: activity }).response(res)
     } catch (error) {
-      new ErrorResponseHandler({ status: 400, message: 'Error al buscar las actividades', error: error.message }).response(res)
+      if (isError(error)) return new ErrorResponseHandler({ status: 400, message: 'Error al buscar las actividades', error: error.message }).response(res)
+      new ErrorResponseHandler({ status: 400, message: 'Error no manejado', error: 'Error no manejado', unknownError: error }).response(res)
       console.log(error)
     }
   }

@@ -20,10 +20,13 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas: 
-  "userInfo ticket ticket"
+  "userInfo none none"
+  "ticket ticket ticket"
   ;
-  gap: 20px;
-  padding: 15px;
+
+  align-items: flex-start;
+  gap: 25px;
+  padding: 35px 15px;
 }
 
 @media screen and (max-width: 1000px) {

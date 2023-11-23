@@ -1,4 +1,7 @@
+import Actividad from '../models/Actividad'
 import Ticket from '../models/Ticket'
+import TicketDet from '../models/TicketDet'
+import { isNumber } from '../utils/isInstance'
 import prisma from './PrismaProvider'
 
 class HdTicketProvider {
@@ -15,6 +18,61 @@ class HdTicketProvider {
         hdUsuario: true,
         hdTicketDet: true,
         hdUsuario2: true
+      }
+    })
+    return tickets
+  }
+
+  static async getTicketByFilters ({
+    idTicket,
+    idTipoSol,
+    idSubTipoSol,
+    idUsuarioRegistra,
+    idUsuarioResponsable,
+    fechaRegistro,
+    indCierre,
+    numAgilo,
+    solicitud
+  }: Ticket) {
+    const tickets = await prisma.hdTicket.findMany({
+      where: {
+        idTicket: idTicket as number || undefined,
+        idTipoSol: idTipoSol as number || undefined,
+        idSubTipoSol: idSubTipoSol as number || undefined,
+        idUsuarioRegistra: idUsuarioRegistra as number || undefined,
+        idUsuarioResponsable: idUsuarioResponsable as number || undefined,
+        fechaRegistro: {
+          gt: fechaRegistro as Date || undefined
+        },
+        indCierre: indCierre as boolean || undefined,
+        numAgilo: {
+          contains: numAgilo as string || undefined
+        },
+        solicitud: {
+          contains: solicitud as string || undefined
+        }
+      },
+      include: {
+        hdSubTipoSol: {
+          select: {
+            abrNom: true,
+            nomSubTipoSol: true
+          }
+        },
+        hdTipoSol: true,
+        hdUsuario: {
+          select: {
+            nomUsuario: true
+          }
+        },
+        hdUsuario2: {
+          select: {
+            nomUsuario: true
+          }
+        }
+      },
+      orderBy: {
+        fecModificacion: 'desc'
       }
     })
     return tickets
@@ -114,10 +172,14 @@ class HdTicketProvider {
     return ticketUpdate
   }
 
-  static async getHdTicketByUser (idUsuario: number) {
+  static async getHdTicketByUser (idUsuario: number, limit: number, offset: number) {
+    const limitOffset: {take: number, skip:number} | {} = (limit >= 0) && (offset >= 0) ? { take: limit, skip: offset } : {}
     const tickets = await prisma.hdTicket.findMany({
       where: {
-        idUsuarioResponsable: idUsuario
+        idUsuarioResponsable: idUsuario,
+        AND: {
+          indCierre: false
+        }
       },
       include: {
         hdSubTipoSol: {
@@ -131,7 +193,11 @@ class HdTicketProvider {
             abrNom: true
           }
         }
-      }
+      },
+      orderBy: {
+        fecModificacion: 'desc'
+      },
+      ...limitOffset
     })
     return tickets
   }
@@ -147,6 +213,75 @@ class HdTicketProvider {
     })
 
     return ticketUpdate
+  }
+
+  static async createTicketWithActivity (ticket: Ticket, activity: Actividad) {
+    const { solicitud, idUsuarioRegistra, numAgilo, idTipoSol, idSubTipoSol, indCierre, idUsuarioResponsable } = ticket
+    if (!solicitud || !idUsuarioRegistra || !idTipoSol) throw new Error('Hay campos que deben ser obligatorios')
+    if (!isNumber(activity.idUsuario)) throw new Error('El id usuario debe ser válido')
+    const newTicket = await prisma.hdTicket.create({
+      data: {
+        solicitud,
+        indCierre,
+        idUsuarioRegistra: idUsuarioRegistra as number,
+        numAgilo,
+        idTipoSol: idTipoSol as number,
+        idSubTipoSol: idSubTipoSol as number || undefined,
+        idUsuarioResponsable: idUsuarioResponsable as number,
+        hdActividad: {
+          create: {
+            desActividad: activity.desActividad,
+            idUsuario: activity.idUsuario
+          }
+        }
+      }
+    })
+
+    return newTicket
+  }
+
+  static async createTicketWithActivityAndTicketDet (ticket: Ticket, activity: Actividad, ticketDet: TicketDet) {
+    const { solicitud, idUsuarioRegistra, numAgilo, idTipoSol, idSubTipoSol, indCierre, idUsuarioResponsable } = ticket
+    if (!solicitud || !idUsuarioRegistra || !idTipoSol) throw new Error('Hay campos que deben ser obligatorios')
+    if (!isNumber(activity.idUsuario)) throw new Error('El id usuario debe ser válido')
+    const newTicket = await prisma.hdTicket.create({
+      data: {
+        solicitud,
+        indCierre,
+        idUsuarioRegistra: idUsuarioRegistra as number,
+        numAgilo,
+        idTipoSol: idTipoSol as number,
+        idSubTipoSol: idSubTipoSol as number || undefined,
+        idUsuarioResponsable: idUsuarioResponsable as number,
+        hdActividad: {
+          create: {
+            desActividad: activity.desActividad,
+            idUsuario: activity.idUsuario
+          }
+        },
+        hdTicketDet: {
+          create: {
+            ...ticketDet,
+            idUsuario: ticketDet.idUsuario as number,
+            idProducto: ticketDet.idProducto as number,
+            idModulo: ticketDet.idModulo as number,
+            idFuncionalidad: ticketDet.idFuncionalidad as number,
+            idSeveridadLista: ticketDet.idSeveridadLista as number,
+            idContinuidadLista: ticketDet.idContinuidadLista as number,
+            idJustificacionLista: ticketDet.idJustificacionLista as number,
+            idSoftClasiLista: ticketDet.idSoftClasiLista as number,
+            idTipoSol: ticketDet.idTipoSol as number,
+            idArea: ticketDet.idArea as number,
+            idCargo: ticketDet.idCargo as number,
+            idBaseDatos: ticketDet.idBaseDatos as number,
+            idHardClasiLista: ticketDet.idHardClasiLista as number,
+            idFrecuenciaLista: ticketDet.idFrecuenciaLista as number
+          }
+        }
+      }
+    })
+
+    return newTicket
   }
 }
 

@@ -1,0 +1,28 @@
+.modal {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--colorWhite);
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
+}
+
+.iconClose {
+  cursor: pointer;
+}
+
+.contenModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.562);
+  z-index: 4;
+  visibility: hidden;
+}
+
+.contenModal:has(> .modalOpen) {
+  visibility: visible;
+}

@@ -1,0 +1,43 @@
+.select {
+  padding: 4px 4px;
+  border-radius: 7px;
+  border: 2px solid var(--disabledColor);
+  transition: border-color 0.2s ease-in-out;
+}
+
+.select.errorStyle {
+  border-color: var(--errorColor);
+  color: var(--errorColorBorder);
+  background-color: var(--errorColorLigth);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--colorBlue);
+  box-shadow: 0px 0px 0px 2px var(--colorBlueLigth);
+}
+
+.select.errorStyle:focus {
+  border-color: var(--errorColorBorder);
+  box-shadow: 0px 0px 0px 2px var(--errorColorLigth);
+}
+
+.labelSelect {
+  font-size: var(--commonFontSize);
+  color: var(--colorGray);
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.labelSelect.errorStyle {
+  color: var(--errorColor);
+}
+
+.contentSelectIcon:has(.select:focus) ~ .labelSelect {
+  color: var(--colorBlue);
+}
+
+.contentSelectIcon {
+  display: flex;
+  flex-direction: column-reverse;
+}

@@ -17,7 +17,7 @@ export default async function login (req: NextApiRequest, res: NextApiResponse) 
     const token = await jwtCreateToken({ payload: { idUsuario, numDocumento, nomUsuario, idRol, idCargo } })
     new SuccessResponseHandler({ status: 200, message: 'Usuario encontrado', data: { user: userFound, token } }).response(res)
   } catch (error) {
-    if (isError(error)) new ErrorResponseHandler({ status: 400, message: 'Credenciales no válidas', error: error.message }).response(res)
+    if (isError(error)) return new ErrorResponseHandler({ status: 400, message: 'Credenciales no válidas', error: error.message }).response(res)
     new ErrorResponseHandler({ status: 400, message: 'Error no manejado', error: 'Error no manejado', unknownError: error }).response(res)
   }
 }

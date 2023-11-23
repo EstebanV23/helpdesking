@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation'
 import { UserContext } from '@/app/userContext'
 import { RedirectButton } from '../redirect/redirect'
 import MyIcon from '../myIcon/myIcon'
+import PopText from '../popText/popText'
 
-export default function CloseSession ({ onlyIcon }: { onlyIcon?: boolean}) {
+export default function CloseSession ({ onlyIcon, position = 'bottom', fontSize }: { onlyIcon?: boolean, position?: 'top' | 'bottom' | 'left' | 'right', fontSize?: number }) {
   const navigate = useRouter()
   const { setToken, setUser } = useContext(UserContext)
   const handleClick = () => {
@@ -25,7 +26,7 @@ export default function CloseSession ({ onlyIcon }: { onlyIcon?: boolean}) {
       msg='Sesión cerrada'
       background='error'
     >
-      {onlyIcon ? <MyIcon icon='material-symbols:logout' /> : 'Cerrar sesión'}
+      {onlyIcon ? <PopText popText='Cerrar sesión' position={position}><MyIcon icon='tabler:logout-2' fontSize={fontSize ?? 15} /></PopText> : 'Cerrar sesión'}
     </RedirectButton>
   )
 }

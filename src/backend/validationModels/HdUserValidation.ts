@@ -12,7 +12,7 @@ export type HdUserCreate = {
 }
 
 const hdUserCreate: Joi.ObjectSchema<HdUserCreate> = Joi.object({
-  nomUsuario: Joi.string().min(3).max(30).required(),
+  nomUsuario: Joi.string().min(3).max(100).required(),
   password: Joi.string().min(6).max(30).required(),
   emailUsuario: Joi.string().email().required(),
   numDocumento: Joi.string().min(6).max(30).required(),

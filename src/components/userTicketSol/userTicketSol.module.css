@@ -1,0 +1,16 @@
+.contentInfo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  "usersearch userinfo"
+  ;
+  gap: 40px;
+}
+
+.infoTable {
+  grid-area: userinfo;
+}
+
+.userSelect {
+  grid-area: usersearch;
+}

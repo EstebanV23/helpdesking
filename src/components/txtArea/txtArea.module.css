@@ -1,0 +1,49 @@
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 7px;
+  border: 2px solid var(--disabledColor);
+  font-size: var(--commonFontSize);
+  color: var(--colorBlack);
+  color: var(--colorBlack);
+  transition: border-color 0.3s ease-in-out;
+  resize: vertical;
+  max-height: 300px;
+}
+
+.labelTextarea{
+  font-size: var(--commonFontSize);
+  color: var(--colorGray);
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.textarea.errorStyle {
+  border-color: var(--errorColor);
+  color: var(--errorColorBorder);
+  background-color: var(--errorColorLigth);
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--colorBlue);
+  box-shadow: 0px 0px 0px 2px var(--colorBlueLigth);
+}
+
+.textarea:focus ~ .labelTextarea {
+  color: var(--colorBlue);
+}
+
+.textarea.errorStyle:focus {
+  border-color: var(--errorColorBorder);
+  box-shadow: 0px 0px 0px 2px var(--errorColorLigth);
+}
+
+.contentTextareaIcon:has(.input:focus) ~ .labelTextarea {
+  color: var(--colorBlue);
+}
+
+.contentTextareaIcon {
+  display: flex;
+  flex-direction: column-reverse;
+}

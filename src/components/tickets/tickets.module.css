@@ -1,5 +1,10 @@
 .ticketContent {
   width: 100%;
   grid-area: ticket;
-  background-color: aqua;
+  font-size: 14px;
+}
+
+.contentLimit {
+  width: 100%;
+  overflow: auto;
 }

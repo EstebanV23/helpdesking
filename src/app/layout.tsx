@@ -6,6 +6,8 @@ import type { NextFont } from 'next/dist/compiled/@next/font'
 import React from 'react'
 import { Toaster } from 'sonner'
 import UserContextProvider from '@/app/userContext'
+import { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const NunitoSans:NextFont = NunitoSansFont({ weight: ['200', '300', '400', '500', '600', '700', '800', '900'], subsets: ['latin'] })
 
@@ -26,9 +28,11 @@ export default function RootLayout ({ children }: {children: React.ReactNode}) {
         <title>FCV HelpDesk</title>
       </head>
       <Toaster richColors />
-      <UserContextProvider>
-        <body className={NunitoSans.className}>{children}</body>
-      </UserContextProvider>
+      <SkeletonTheme baseColor='#e2e2e2'>
+        <UserContextProvider>
+          <body className={NunitoSans.className}>{children}</body>
+        </UserContextProvider>
+      </SkeletonTheme>
     </html>
   )
 }
