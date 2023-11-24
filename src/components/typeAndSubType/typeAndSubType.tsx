@@ -8,7 +8,16 @@ import Select from '../select/select'
 import SubTipoSol from '@/backend/models/SubTipoSol'
 import getSubTypesService from '@/app/services/getSubTypesService'
 
-export default function TypeAndSubType ({ values }: { values?: Ticket }) {
+type Props = {
+  values?: Ticket
+  saveObject: Object
+  setSaveObject?:React.Dispatch<React.SetStateAction<Object>>
+  nomKeySaveType: string
+  nomKeySaveSubType: string
+  className?: string
+}
+
+export default function TypeAndSubType ({ values, className, nomKeySaveSubType, nomKeySaveType, saveObject, setSaveObject }: Props) {
   const [types, setTypes] = useState<TipoSol[]>([])
   const [typeSelected, setTypeSelected] = useState(values?.idTipoSol)
   const [subTypeSelected, setSubTypeSelected] = useState(values?.idSubTipoSol)
@@ -27,16 +36,22 @@ export default function TypeAndSubType ({ values }: { values?: Ticket }) {
     if (typeSelected) {
       getSubTypesService({ token, idTipoSol: typeSelected as number })
         .then(data => {
-          console.log({ data })
           setSubTypes(data.data)
         })
     }
   }, [typeSelected, token])
 
-  console.log({ subTypeSelected })
+  useEffect(() => {
+    if (!saveObject || !setSaveObject) return
+    setSaveObject({
+      ...saveObject,
+      [nomKeySaveType]: typeSelected,
+      [nomKeySaveSubType]: subTypeSelected
+    })
+  }, [subTypeSelected, typeSelected])
 
   return (
-    <div>
+    <div className={className}>
       <Select defaultText='Selecciona un tipo' labelText='Tipo de solicitud' name='idTipoSol' setValue={setTypeSelected}>
         {types?.map(type => <option key={type.idTipoSol} defaultChecked={type.idTipoSol === typeSelected} value={type.idTipoSol}>{type.nomTipoSol}</option>)}
       </Select>

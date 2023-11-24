@@ -1,0 +1,38 @@
+.contentTicket {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+  "infoUser infoUser"
+  "ticket ticketDet"
+  "button none"
+  ;
+  gap: 15px;
+}
+
+.infoUser {
+  grid-area: infoUser;
+}
+
+.ticketInfo {
+  grid-area: ticket;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.contentTypes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.contentActivity {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--colorBlueExtraLigth);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

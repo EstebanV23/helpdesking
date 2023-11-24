@@ -91,13 +91,20 @@ class HdUserProvider {
     return newUser
   }
 
-  static async getUserByNumDocumento (numDocumento: string) {
-    const user = await prisma.hdUsuario.findMany({
-      where: {
-        numDocumento: {
-          contains: numDocumento
+  static async getUserByNumDocumento ({ numDocumento, nomUsuario }: {numDocumento?: string, nomUsuario?: string}) {
+    const where = numDocumento
+      ? {
+          numDocumento: {
+            contains: numDocumento
+          }
         }
-      },
+      : {
+          nomUsuario: {
+            contains: nomUsuario
+          }
+        }
+    const user = await prisma.hdUsuario.findMany({
+      where,
       include: {
         hdTipoDocumento: true,
         hdCargo: {

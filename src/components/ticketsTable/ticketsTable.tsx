@@ -3,6 +3,7 @@ import React from 'react'
 import TicketsTableSk from '../ticketsTableSk/ticketsTableSk'
 import { hdTipoSol } from '@prisma/client'
 import Style from './ticketsTable.module.css'
+import Redirect from '../redirect/redirect'
 
 type Props = {
   tickets: (Ticket & {hdTipoSol: hdTipoSol})[] | null
@@ -43,10 +44,10 @@ export default function TicketsTable ({ tickets }: Props) {
               </td>
               <td>
                 <textarea className={Style.textContent} rows={10} disabled>
-                  {`${solicitud} pasdfasfasd f asf asf asdf asdf asdf asdf asdf asdjkf sadkfljasfkasdfsad ;fasdjf adsfj asdfasjf hadsfasfasdhf kadsfghadsfsadfhasdkgfhjasf hadsfasd da fs fas fas fsad fasdf asdf asd fasdf asdf asdf asd asd asdf asdf asd asd fas  fasdf sadf asf as`}
+                  {solicitud}
                 </textarea>
               </td>
-              <td>
+              <td className={Style.date}>
                 <p className={Style.textSol}>{abrNom} <small>({nomTipoSol})</small></p>
               </td>
             </tr>

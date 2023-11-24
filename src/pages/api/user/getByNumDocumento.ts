@@ -10,7 +10,8 @@ export default async function getAll (req: NextApiRequest, res: NextApiResponse)
       const auth = req.headers.authorization
       await validateTokenRequest(auth)
       const numDocumento = req.body.numDocumento as string
-      const users = await HdUserProvider.getUserByNumDocumento(numDocumento)
+
+      const users = await HdUserProvider.getUserByNumDocumento(isNaN(Number(numDocumento)) ? { nomUsuario: numDocumento } : { numDocumento })
       new SuccessResponseHandler({ status: 200, message: 'Usuarios encontrados', data: users }).response(res)
     } catch (error: any) {
       if (isError(error)) return new ErrorResponseHandler({ status: 400, message: 'Error al buscar los usuarios', error: error.message }).response(res)

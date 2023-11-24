@@ -12,9 +12,10 @@ type Props = {
   setUserSelected: React.Dispatch<React.SetStateAction<any>>
   userSelected: Usuario | null
   className?: string
+  label?: string
 }
 
-export default function FindUser ({ setUserSelected, userSelected, className }: Props) {
+export default function FindUser ({ setUserSelected, userSelected, className, label }: Props) {
   console.log({ userSelected })
   const [open, setOpen] = React.useState(false)
   const [users, setUsers] = React.useState<(Usuario & {hdCargo: Cargo})[] | null>(null)
@@ -25,7 +26,6 @@ export default function FindUser ({ setUserSelected, userSelected, className }: 
     console.log({ search })
     getUserByNumDoc({ token, numDocumento: search })
       .then(data => {
-        console.log({ data })
         setUsers(data.data)
       })
   }, [search, token])
@@ -33,7 +33,7 @@ export default function FindUser ({ setUserSelected, userSelected, className }: 
   return (
     <div className={className}>
       <Input
-        label='Usuario registra'
+        label={label}
         name='idUsuarioRegistra'
         type='text'
         value={userSelected?.numDocumento}
@@ -45,6 +45,7 @@ export default function FindUser ({ setUserSelected, userSelected, className }: 
           console.log('click')
           setOpen(true)
         }}
+        icon='tabler:user-scan'
       />
       <Modal open={open} setOpen={setOpen}>
         <Input label='' name='' icon='tabler:search' value={search} setValue={setSearch} />

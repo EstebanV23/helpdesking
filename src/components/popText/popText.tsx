@@ -15,6 +15,8 @@ type Props = {
   popText?: string,
   position?: keyof positionPopText,
   flasBack?: boolean
+  onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+  className?: string
 }
 
 const positionPop: positionPopText = {
@@ -27,7 +29,7 @@ const positionPop: positionPopText = {
 const DEFAULT_POSITION = 'top'
 const VALUE_CONST = 15
 
-export default function PopText ({ children, popText, position }: Props) {
+export default function PopText ({ children, popText, position, onClick, className }: Props) {
   const positionOfPop: string = positionPop[position || DEFAULT_POSITION]
   const ref = useRef<HTMLDivElement>(null)
 
@@ -53,7 +55,7 @@ export default function PopText ({ children, popText, position }: Props) {
   }, [popText, positionOfPop])
 
   return (
-    <div className={`${Style.defaultStyle}`}>
+    <div className={`${Style.defaultStyle} ${className}`} onClick={onClick}>
       <p className={`${Style.textPop} ${Style[positionOfPop]}`} ref={ref}>{popText}</p>
       {children}
     </div>

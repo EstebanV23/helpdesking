@@ -13,7 +13,7 @@ export default function template ({ children }: { children: React.ReactNode }) {
         <ul className={Style.contenNav}>
           <Redirect popText='Inicio' href='/home'><MyIcon icon='tabler:home' fontSize={defaultSize} /></Redirect>
           <Redirect popText='Crear solicitud' href='/home/crear-solicitud/'><MyIcon icon='tabler:square-plus-2' fontSize={defaultSize} /></Redirect>
-          <Redirect popText='Buscar tickets solicitud' href='#'><MyIcon icon='tabler:file-search' fontSize={defaultSize} /></Redirect>
+          <Redirect popText='Buscar tickets solicitud' href='/home/buscar-ticket'><MyIcon icon='tabler:file-search' fontSize={defaultSize} /></Redirect>
           <Redirect popText='Editar información' href='#'><MyIcon icon='tabler:user-square-rounded' fontSize={defaultSize} /></Redirect>
           <CloseSession onlyIcon position='right' fontSize={defaultSize} />
         </ul>

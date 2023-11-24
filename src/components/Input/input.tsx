@@ -1,9 +1,10 @@
+'use client'
 import React, { useEffect } from 'react'
 import Style from './input.module.css'
 import MyIcon from '../myIcon/myIcon'
 
 type InputProps = {
-  label: string
+  label?: string
   name: string
   icon?: string
   disabled?: boolean

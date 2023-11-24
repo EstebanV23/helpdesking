@@ -14,12 +14,13 @@ export default async function create (req: NextApiRequest, res: NextApiResponse)
       await validateTokenRequest(auth)
       const requestType: {ticket: Ticket, activity: Actividad, ticketDet: TicketDet} = req.body
       const { ticket, activity, ticketDet } = requestType
+      console.log({ requestType })
       const newTicket = await HdTicketProvider.createTicketWithActivityAndTicketDet(ticket, activity, ticketDet)
       new SuccessResponseHandler({ status: 200, message: 'Ticket creado', data: newTicket }).response(res)
     } catch (error) {
+      console.log(error)
       if (isError(error)) return new ErrorResponseHandler({ status: 400, message: 'Error al crear el ticket', error: error.message }).response(res)
       new ErrorResponseHandler({ status: 400, message: 'Error no manejado', error: 'Error no manejado', unknownError: error }).response(res)
-      console.log(error)
     }
   }
 }

@@ -10,16 +10,23 @@ import { objectInfo } from '../userInfo/userInfo'
 import Skeleton from 'react-loading-skeleton'
 import TipoDocumento from '@/backend/models/TipoDocumento'
 import Style from './userTicketSol.module.css'
-import { requestObject } from '../allTicketSol/allTicketSol'
 
-export default function UserTicketSol ({ requestObject, setRequestObject }: { requestObject: requestObject, setRequestObject?: React.Dispatch<React.SetStateAction<requestObject>>}) {
+type Props = {
+  setSaveObject: React.Dispatch<React.SetStateAction<Object | {}>>
+  saveObject: Object
+  nomKeySave: string
+  viewInfo?: boolean
+  label?: string
+  className?: string
+}
+
+export default function UserTicketSol ({ setSaveObject, className, saveObject, label, nomKeySave, viewInfo = true }: Props) {
   const [userSelected, setUserSelected] = useState<Usuario | null>(null)
   const [userInfo, setUserInfo] = useState<objectInfo>({})
 
   const { nomUsuario, emailUsuario, numDocumento, nomCargo, nomArea, nomEmpresa, nomTipoDocumento, abrNom } = userInfo
 
   useEffect(() => {
-    console.log({ userSelected })
     if (!userSelected) return
     const { nomUsuario, emailUsuario, numDocumento, hdCargo, hdTipoDocumento } = userSelected as Usuario & { hdCargo: Cargo, hdTipoDocumento: TipoDocumento }
     const { nomCargo, hdArea } = hdCargo as Cargo & { hdArea: Area }
@@ -38,41 +45,33 @@ export default function UserTicketSol ({ requestObject, setRequestObject }: { re
       abrNom
     })
 
-    if (!setRequestObject) return
+    if (!setSaveObject || !saveObject) return
 
-    const { ticket } = requestObject
+    console.log({
+      ...saveObject,
+      [nomKeySave]: userSelected.idUsuario as number
+    })
 
-    if (!ticket) {
-      setRequestObject({
-        ...requestObject,
-        ticket: {
-          idUsuarioRegistra: userSelected.idUsuario
-        }
-      })
-      return
-    }
-
-    setRequestObject({
-      ...requestObject,
-      ticket: {
-        ...ticket,
-        idUsuarioRegistra: userSelected.idUsuario
-      }
+    setSaveObject({
+      ...saveObject,
+      [nomKeySave]: userSelected.idUsuario as number
     })
   }, [userSelected])
 
   return (
-    <div className={Style.contentInfo}>
-      <InfoTable className={Style.infoTable}>
-        <p><strong>Nombre:</strong> {nomUsuario || <Skeleton width={120} />}</p>
-        <p><strong>Email:</strong> {emailUsuario || <Skeleton width={120} />}</p>
-        <p><strong>Número de documento:</strong> {numDocumento || <Skeleton width={120} />}</p>
-        <p><strong>Tipo de documento:</strong> {nomTipoDocumento || <Skeleton width={100} />} ({abrNom || <Skeleton width={30} />})</p>
-        <p><strong>Cargo:</strong> {nomCargo || <Skeleton width={120} />}</p>
-        <p><strong>Area:</strong> {nomArea || <Skeleton width={120} />}</p>
-        <p><strong>Emprea:</strong> {nomEmpresa || <Skeleton width={120} />}</p>
-      </InfoTable>
-      <FindUser setUserSelected={setUserSelected} userSelected={userSelected} className={Style.userSelect} />
+    <div className={`${Style.contentInfo} ${className}`}>
+      {viewInfo && (
+        <InfoTable className={Style.infoTable}>
+          <p><strong>Nombre:</strong> {nomUsuario || <Skeleton width={120} />}</p>
+          <p><strong>Email:</strong> {emailUsuario || <Skeleton width={120} />}</p>
+          <p><strong>Número de documento:</strong> {numDocumento || <Skeleton width={120} />}</p>
+          <p><strong>Tipo de documento:</strong> {nomTipoDocumento || <Skeleton width={100} />} ({abrNom || <Skeleton width={30} />})</p>
+          <p><strong>Cargo:</strong> {nomCargo || <Skeleton width={120} />}</p>
+          <p><strong>Area:</strong> {nomArea || <Skeleton width={120} />}</p>
+          <p><strong>Emprea:</strong> {nomEmpresa || <Skeleton width={120} />}</p>
+        </InfoTable>
+      )}
+      <FindUser setUserSelected={setUserSelected} label={label} userSelected={userSelected} className={Style.userSelect} />
     </div>
   )
 }

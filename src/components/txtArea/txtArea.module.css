@@ -11,6 +11,29 @@
   max-height: 300px;
 }
 
+.icon {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  color: var(--colorBlack);
+  cursor: pointer;
+  background-color: var(--colorGrayLigth);
+  padding: 2px;
+  opacity: 0;
+}
+
+.icon:hover {
+  background-color: var(--colorBlueLigth);
+}
+
+.contentTextareaIcon:hover .icon {
+  opacity: 1;
+}
+
+.contentTextareaIcon:has(.input:focus) ~ .icon {
+  color: var(--colorBlue);
+}
+
 .labelTextarea{
   font-size: var(--commonFontSize);
   color: var(--colorGray);
@@ -45,5 +68,6 @@
 
 .contentTextareaIcon {
   display: flex;
+  position: relative;
   flex-direction: column-reverse;
 }
